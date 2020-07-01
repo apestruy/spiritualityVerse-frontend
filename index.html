@@ -14,8 +14,18 @@
   >
     <h1 id="title">SpiritualityVerse Memory Game</h1>
     <h2 id="score">Score: 0</h2>
-    <h2 id="counter">Time Left: 60</h2>
+    <h2 id="timer">Timer: 60</h2>
+    <a
+      href="javascript:void(0)"
+      onclick="document.getElementById('leaderboard').style.display='block'"
+      >Top Scores!</a
+    >
+    <button id="restart">Restart</button>
+    <button id="top_scores">Top Scores!</button>
+
     <div class="grid-container"></div>
+    <div id="game-over"></div>
+    <div id="leaderboard"></div>
     <script src="index.js"></script>
   </body>
 </html>

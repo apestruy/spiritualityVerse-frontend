@@ -45,6 +45,7 @@
 }
 
 #title {
+  /* color: rgb(166, 230, 255); */
   color: #e94848;
   margin-left: 19em;
 }
@@ -55,8 +56,41 @@
   margin-left: 4em;
 }
 
-#counter {
+#timer {
   color: rgb(166, 230, 255);
   display: inline;
   margin-left: 4em;
+}
+
+#game-over {
+  display: none;
+  position: absolute;
+  top: 35%;
+  left: 35%;
+  width: 25%;
+  height: 25%;
+  padding: 16px;
+  border: 20px solid #e94848;
+  background-color: white;
+  color: rgb(11, 0, 160);
+  border-radius: 20px;
+}
+
+#leaderboard {
+  display: none;
+  position: absolute;
+  top: 35%;
+  left: 35%;
+  width: 25%;
+  height: 30%;
+  padding: 16px;
+  border: 20px solid #e94848;
+  background-color: white;
+  color: rgb(11, 0, 160);
+  border-radius: 20px;
+}
+
+#close {
+  position: absolute;
+  right: 20px;
 }
