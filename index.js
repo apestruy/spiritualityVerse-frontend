@@ -33,7 +33,7 @@ document.addEventListener("DOMContentLoaded", function () {
           const image = document.createElement("img");
           littleDiv.setAttribute("class", "grid-item");
           littleDiv.dataset.id = card.id;
-          containerDiv.dataset.id = card.card_set_id;
+          containerDiv.dataset.id = card.card_set.id;
           image.setAttribute("class", "card-image");
           image.src = defaultUrl;
           //   card.imageUrl;
@@ -119,11 +119,11 @@ document.addEventListener("DOMContentLoaded", function () {
             <h3>Your score is ${scoreNum} <br>
             Your time remaining is ${timerNum} seconds</h3>
             
-            <form class="form" style="">
+            <form class="form">
             <h3>Please Enter Your Name:</h3>
-            <input id="username" type="text" name="username" value="" class="input-text">
+            <input type="text" name="username" value="">
             &nbsp &nbsp
-            <input id="submit" type="submit" name="submit" value="Submit" class="submit">
+            <input type="submit" name="submit" value="Submit">
             </form>`;
     const xButton = document.getElementById("close");
     xButton.addEventListener("click", (e) => {
@@ -134,9 +134,28 @@ document.addEventListener("DOMContentLoaded", function () {
     form.addEventListener("submit", function (event) {
       event.preventDefault();
       let name = event.target.username.value;
+      let cardSetId = parseInt(containerDiv.dataset.id);
       console.log("Name is:", name);
       console.log("Score is:", scoreNum);
       console.log("Time left is:", timerNum);
+      console.log("Dataset ID:", cardSetId);
+
+      fetch("http://localhost:3000/api/v1/games", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          username: name,
+          score: scoreNum,
+          card_set_id: cardSetId,
+        }),
+      }).then(() => leaderBoard());
     });
+  }
+
+  function leaderBoard() {
+    console.log("IN LEADERBOARD");
   }
 });
