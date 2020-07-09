@@ -36,6 +36,8 @@ document.addEventListener("DOMContentLoaded", function () {
           containerDiv.dataset.id = card.card_set.id;
           image.setAttribute("class", "card-image");
           image.src = defaultUrl;
+          // "https://marketing.gaia.com/wp-content/uploads/article-migration-image-seven-supermoon-rituals-768x432.jpg";
+          // "https://st.depositphotos.com/1653909/4590/i/450/depositphotos_45904447-stock-photo-fortune-tellers-crystal-ball.jpg";
           //   card.imageUrl;
           littleDiv.appendChild(image);
           containerDiv.appendChild(littleDiv);
@@ -114,7 +116,7 @@ document.addEventListener("DOMContentLoaded", function () {
   function popUpGameOver(result, expression) {
     let timerNum = parseInt(timer.innerText.split(" ")[1]);
     gameOverPopUp.innerHTML = `
-      <button id="close">X</button>
+      <button class="close">X</button>
             <h2><strong>YOU ${result}! ${expression} </strong> </h2>
             <h3>Your score is ${scoreNum} <br>
             Your time remaining is ${timerNum} seconds</h3>
@@ -125,7 +127,7 @@ document.addEventListener("DOMContentLoaded", function () {
             &nbsp &nbsp
             <input type="submit" name="submit" value="Submit">
             </form>`;
-    const xButton = document.getElementById("close");
+    const xButton = document.getElementsByClassName("close")[0];
     xButton.addEventListener("click", (e) => {
       gameOverPopUp.style.display = "none";
     });
@@ -135,10 +137,6 @@ document.addEventListener("DOMContentLoaded", function () {
       event.preventDefault();
       let name = event.target.username.value;
       let cardSetId = parseInt(containerDiv.dataset.id);
-      console.log("Name is:", name);
-      console.log("Score is:", scoreNum);
-      console.log("Time left is:", timerNum);
-      console.log("Dataset ID:", cardSetId);
 
       fetch("http://localhost:3000/api/v1/games", {
         method: "POST",
@@ -149,6 +147,7 @@ document.addEventListener("DOMContentLoaded", function () {
         body: JSON.stringify({
           username: name,
           score: scoreNum,
+          time: timerNum,
           card_set_id: cardSetId,
         }),
       }).then(() => leaderBoard());
@@ -156,6 +155,65 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   function leaderBoard() {
-    console.log("IN LEADERBOARD");
+    fetch("http://localhost:3000/api/v1/games")
+      .then((resp) => resp.json())
+      .then((games) => {
+        leaderBoardPopUp.style.display = "block";
+
+        const closeButton = document.createElement("button");
+        closeButton.setAttribute("class", "close");
+        closeButton.innerText = "X";
+        leaderBoardPopUp.appendChild(closeButton);
+        const h3 = document.createElement("h3");
+        h3.innerText = "TOP 10 SCORES";
+        leaderBoardPopUp.appendChild(h3);
+
+        closeButton.addEventListener("click", function (e) {
+          leaderBoardPopUp.style.display = "none";
+          leaderBoardPopUp.innerHTML = "";
+        });
+
+        const ol = document.createElement("ol");
+        games.forEach((game) => {
+          const li = document.createElement("li");
+          li.setAttribute("id", "li");
+          li.innerHTML = `Score: ${
+            game.score.toString().length === 3
+              ? game.score
+              : game.score.toString().length === 2
+              ? game.score + "\xa0\xa0"
+              : game.score + "\xa0\xa0\xa0\xa0"
+          } &nbsp &nbsp Time: ${60 - game.time} sec &nbsp &nbsp Name: ${
+            game.username
+          }`;
+          const deleteButton = document.createElement("button");
+          deleteButton.setAttribute("id", "delete");
+          deleteButton.innerText = "Delete";
+          deleteButton.dataset.id = game.id;
+
+          deleteButton.addEventListener("click", function (e) {
+            deleteButton.parentNode.remove();
+            fetch(
+              `http://localhost:3000/api/v1/games/${deleteButton.dataset.id}`,
+              {
+                method: "DELETE",
+              }
+            ).then(() => {
+              leaderBoardPopUp.innerHTML = "";
+              leaderBoard();
+            });
+          });
+
+          li.appendChild(deleteButton);
+          ol.appendChild(li);
+        });
+        leaderBoardPopUp.appendChild(ol);
+      });
   }
+
+  const topScores = document.getElementById("top_scores");
+  topScores.addEventListener("click", function (e) {
+    leaderBoardPopUp.innerHTML = "";
+    leaderBoard();
+  });
 });

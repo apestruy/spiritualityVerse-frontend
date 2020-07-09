@@ -46,7 +46,7 @@
 
 #title {
   /* color: rgb(166, 230, 255); */
-  color: #e94848;
+  color: #ca1414;
   margin-left: 19em;
 }
 
@@ -84,13 +84,23 @@
   width: 25%;
   height: 30%;
   padding: 16px;
-  border: 20px solid #e94848;
+  border: 20px solid #ad2d2d;
   background-color: white;
-  color: rgb(11, 0, 160);
+  color: #002e92;
   border-radius: 20px;
 }
 
-#close {
+.close {
   position: absolute;
   right: 20px;
+}
+
+#delete {
+  position: absolute;
+  right: 20px;
+}
+
+#li {
+  font-weight: bold;
+  /* color: #002e92; */
 }
