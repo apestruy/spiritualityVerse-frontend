@@ -3,15 +3,6 @@
   height: 85vh;
   margin: 1rem;
   grid-template-columns: 20% 20% 20% 20% 20%;
-  /* background-color: #f08080; */
-  /* background-color: #faa285; */
-  /* background: rgb(204, 125, 142);
-  background: linear-gradient(
-    121deg,
-    rgba(204, 125, 142, 0.6264880952380952) 0%,
-    rgba(250, 162, 133, 0.8113620448179272) 0%
-  ); */
-
   padding: 10px;
   border-radius: 40px;
 }
@@ -25,27 +16,13 @@
 .grid-item img {
   height: 7.5rem;
   width: 9rem;
-  /* background: rgb(8, 44, 124);
-  background: linear-gradient(
-    27deg,
-    rgba(8, 44, 124, 1) 28%,
-    rgba(110, 48, 48, 1) 62%
-  ); */
   background-color: #395694;
-  /* background: rgb(136, 133, 195);
-  background: linear-gradient(
-    90deg,
-    rgba(136, 133, 195, 1) 0%,
-    rgba(203, 184, 204, 1) 65%,
-    rgba(151, 110, 188, 1) 100%
-  ); */
   border: 5px solid rgb(166, 230, 255);
   padding: 25px;
   border-radius: 25px;
 }
 
 #title {
-  /* color: rgb(166, 230, 255); */
   color: #ca1414;
   margin-left: 19em;
 }
@@ -53,40 +30,40 @@
 #score {
   color: rgb(166, 230, 255);
   display: inline;
-  margin-left: 4em;
+  margin-left: 5em;
 }
 
 #timer {
   color: rgb(166, 230, 255);
   display: inline;
-  margin-left: 4em;
+  margin-left: 5em;
 }
 
 #game-over {
   display: none;
   position: absolute;
-  top: 35%;
+  top: 30%;
   left: 35%;
   width: 25%;
   height: 25%;
   padding: 16px;
-  border: 20px solid #e94848;
+  border: 20px solid #ca1414;
   background-color: white;
-  color: rgb(11, 0, 160);
+  color: navy;
   border-radius: 20px;
 }
 
 #leaderboard {
   display: none;
   position: absolute;
-  top: 35%;
+  top: 30%;
   left: 35%;
   width: 25%;
   height: 30%;
   padding: 16px;
-  border: 20px solid #ad2d2d;
+  border: 20px solid #ca1414;
   background-color: white;
-  color: #002e92;
+  color: navy;
   border-radius: 20px;
 }
 
@@ -103,4 +80,35 @@
 #li {
   font-weight: bold;
   /* color: #002e92; */
+}
+
+#top-10 {
+  margin-left: 4.5em;
+}
+
+#game-over-title {
+  margin-left: 5em;
+}
+
+#top-scores {
+  margin-left: 9em;
+  /* font-size: 1em; */
+  font-weight: bold;
+  /* margin: 1em; */
+  padding: 0.55em 1em;
+  border: 2px solid navy;
+  border-radius: 9px;
+  background-color: LightBlue;
+  color: Navy;
+}
+
+#restart {
+  margin-left: 9em;
+  font-weight: bold;
+  /* margin: 2em; */
+  padding: 0.55em 1em;
+  border: 2px solid navy;
+  border-radius: 9px;
+  background-color: LightBlue;
+  color: Navy;
 }

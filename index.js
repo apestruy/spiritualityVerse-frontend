@@ -14,6 +14,8 @@ document.addEventListener("DOMContentLoaded", function () {
   startGame();
 
   function startGame() {
+    score.innerText = "Score: 0";
+    timer.innerText = "Timer: 60";
     fetch("http://localhost:3000/api/v1/cards")
       .then((resp) => resp.json())
       .then((cards) => {
@@ -24,8 +26,8 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         shuffle(doubledCards);
-        let numScore = 0;
-        score.innerText = `Score: ${numScore}`;
+        // let numScore = 0;
+        // score.innerText = `Score: ${numScore}`;
 
         containerDiv.innerHTML = "";
         doubledCards.forEach((card) => {
@@ -36,9 +38,6 @@ document.addEventListener("DOMContentLoaded", function () {
           containerDiv.dataset.id = card.card_set.id;
           image.setAttribute("class", "card-image");
           image.src = defaultUrl;
-          // "https://marketing.gaia.com/wp-content/uploads/article-migration-image-seven-supermoon-rituals-768x432.jpg";
-          // "https://st.depositphotos.com/1653909/4590/i/450/depositphotos_45904447-stock-photo-fortune-tellers-crystal-ball.jpg";
-          //   card.imageUrl;
           littleDiv.appendChild(image);
           containerDiv.appendChild(littleDiv);
 
@@ -107,9 +106,9 @@ document.addEventListener("DOMContentLoaded", function () {
     clearInterval(counter);
     gameOverPopUp.style.display = "block";
     if (scoreNum === 100) {
-      popUpGameOver("WON", ":)");
+      popUpGameOver("WON", "🤩");
     } else {
-      popUpGameOver("LOST", ":(");
+      popUpGameOver("LOST", "😩");
     }
   }
 
@@ -117,7 +116,7 @@ document.addEventListener("DOMContentLoaded", function () {
     let timerNum = parseInt(timer.innerText.split(" ")[1]);
     gameOverPopUp.innerHTML = `
       <button class="close">X</button>
-            <h2><strong>YOU ${result}! ${expression} </strong> </h2>
+            <h2 id="game-over-title"><strong>YOU ${result}! ${expression} </strong> </h2>
             <h3>Your score is ${scoreNum} <br>
             Your time remaining is ${timerNum} seconds</h3>
             
@@ -150,8 +149,14 @@ document.addEventListener("DOMContentLoaded", function () {
           time: timerNum,
           card_set_id: cardSetId,
         }),
-      }).then(() => leaderBoard());
+      }).then(() => helperFunc());
     });
+  }
+
+  function helperFunc() {
+    leaderBoard();
+    gameOverPopUp.innerHTML = "";
+    gameOverPopUp.style.display = "none";
   }
 
   function leaderBoard() {
@@ -164,9 +169,10 @@ document.addEventListener("DOMContentLoaded", function () {
         closeButton.setAttribute("class", "close");
         closeButton.innerText = "X";
         leaderBoardPopUp.appendChild(closeButton);
-        const h3 = document.createElement("h3");
-        h3.innerText = "TOP 10 SCORES";
-        leaderBoardPopUp.appendChild(h3);
+        const h2 = document.createElement("h2");
+        h2.setAttribute("id", "top-10");
+        h2.innerText = "LEADERBOARD";
+        leaderBoardPopUp.appendChild(h2);
 
         closeButton.addEventListener("click", function (e) {
           leaderBoardPopUp.style.display = "none";
@@ -211,9 +217,26 @@ document.addEventListener("DOMContentLoaded", function () {
       });
   }
 
-  const topScores = document.getElementById("top_scores");
+  const topScores = document.getElementById("top-scores");
   topScores.addEventListener("click", function (e) {
     leaderBoardPopUp.innerHTML = "";
     leaderBoard();
+  });
+
+  function restart() {
+    clearInterval(counter);
+    timer.innerText = "Timer: 60";
+    scoreNum = 0;
+    gameOverPopUp.innerHTML = "";
+    gameOverPopUp.style.display = "none";
+    leaderBoardPopUp.innerHTML = "";
+    leaderBoardPopUp.style.display = "none";
+    counter = setInterval(decrementCounter, 1000);
+    startGame();
+  }
+
+  restartButton = document.getElementById("restart");
+  restartButton.addEventListener("click", function (e) {
+    restart();
   });
 });
