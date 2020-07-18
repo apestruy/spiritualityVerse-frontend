@@ -189,28 +189,32 @@ document.addEventListener("DOMContentLoaded", function () {
               : game.score.toString().length === 2
               ? game.score + "\xa0\xa0"
               : game.score + "\xa0\xa0\xa0\xa0"
-          } &nbsp &nbsp Time: ${60 - game.time} sec &nbsp &nbsp Name: ${
-            game.username
-          }`;
-          const deleteButton = document.createElement("button");
-          deleteButton.setAttribute("id", "delete");
-          deleteButton.innerText = "Delete";
-          deleteButton.dataset.id = game.id;
+          } &nbsp &nbsp Time: ${
+            60 - game.time
+          } sec &nbsp &nbsp Name: ${game.username
+            .split(" ")
+            .map((s) => s.charAt(0).toUpperCase() + s.slice(1).toLowerCase())
+            .join(" ")}`;
 
-          deleteButton.addEventListener("click", function (e) {
-            deleteButton.parentNode.remove();
-            fetch(
-              `http://localhost:3000/api/v1/games/${deleteButton.dataset.id}`,
-              {
-                method: "DELETE",
-              }
-            ).then(() => {
-              leaderBoardPopUp.innerHTML = "";
-              leaderBoard();
-            });
-          });
+          // const deleteButton = document.createElement("button");
+          // deleteButton.setAttribute("id", "delete");
+          // deleteButton.innerText = "Delete";
+          // deleteButton.dataset.id = game.id;
 
-          li.appendChild(deleteButton);
+          // deleteButton.addEventListener("click", function (e) {
+          //   deleteButton.parentNode.remove();
+          //   fetch(
+          //     `http://localhost:3000/api/v1/games/${deleteButton.dataset.id}`,
+          //     {
+          //       method: "DELETE",
+          //     }
+          //   ).then(() => {
+          //     leaderBoardPopUp.innerHTML = "";
+          //     leaderBoard();
+          //   });
+          // });
+          // li.appendChild(deleteButton);
+
           ol.appendChild(li);
         });
         leaderBoardPopUp.appendChild(ol);
