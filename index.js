@@ -16,7 +16,8 @@ document.addEventListener("DOMContentLoaded", function () {
   function startGame() {
     score.innerText = "Score: 0";
     timer.innerText = "Timer: 60";
-    fetch("http://localhost:3000/api/v1/cards")
+    // fetch("http://localhost:3000/api/v1/cards")
+    fetch("https://spiritualityversememorygame.herokuapp.com/api/v1/cards")
       .then((resp) => resp.json())
       .then((cards) => {
         const doubledCards = [...cards, ...cards];
@@ -137,7 +138,8 @@ document.addEventListener("DOMContentLoaded", function () {
       let name = event.target.username.value;
       let cardSetId = parseInt(containerDiv.dataset.id);
 
-      fetch("http://localhost:3000/api/v1/games", {
+      // fetch("http://localhost:3000/api/v1/games", {
+      fetch("https://spiritualityversememorygame.herokuapp.com/api/v1/games", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -160,7 +162,8 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   function leaderBoard() {
-    fetch("http://localhost:3000/api/v1/games")
+    // fetch("http://localhost:3000/api/v1/games")
+    fetch("https://spiritualityversememorygame.herokuapp.com/api/v1/games")
       .then((resp) => resp.json())
       .then((games) => {
         leaderBoardPopUp.style.display = "block";
