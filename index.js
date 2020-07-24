@@ -22,13 +22,13 @@ document.addEventListener("DOMContentLoaded", function () {
       .then((cards) => {
         const doubledCards = [...cards, ...cards];
 
+        document.getElementById("loading").style.display = "none";
+
         function shuffle(array) {
           array.sort(() => Math.random() - 0.5);
         }
 
         shuffle(doubledCards);
-        // let numScore = 0;
-        // score.innerText = `Score: ${numScore}`;
 
         containerDiv.innerHTML = "";
         doubledCards.forEach((card) => {
@@ -56,7 +56,6 @@ document.addEventListener("DOMContentLoaded", function () {
               }
               if (cardFlip === 2) {
                 cardCheck();
-                // console.log(cardArray);
               }
             }
           });
@@ -85,6 +84,7 @@ document.addEventListener("DOMContentLoaded", function () {
       }, 500);
     }
   }
+
   let counter = setInterval(decrementCounter, 1000);
 
   function decrementCounter() {

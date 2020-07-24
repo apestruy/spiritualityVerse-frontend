@@ -112,3 +112,10 @@
   background-color: LightBlue;
   color: Navy;
 }
+
+#loading {
+  position: absolute;
+  left: 38%;
+  top: 23%;
+  display: block;
+}
