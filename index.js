@@ -207,7 +207,8 @@ document.addEventListener("DOMContentLoaded", function () {
           deleteButton.addEventListener("click", function (e) {
             deleteButton.parentNode.remove();
             fetch(
-              `http://localhost:3000/api/v1/games/${deleteButton.dataset.id}`,
+              // `http://localhost:3000/api/v1/games/${deleteButton.dataset.id}`,
+              `https://spiritualityversememorygame.herokuapp.com/api/v1/games/${deleteButton.dataset.id}`,
               {
                 method: "DELETE",
               }
