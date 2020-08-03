@@ -199,24 +199,24 @@ document.addEventListener("DOMContentLoaded", function () {
             .map((s) => s.charAt(0).toUpperCase() + s.slice(1).toLowerCase())
             .join(" ")}`;
 
-          // const deleteButton = document.createElement("button");
-          // deleteButton.setAttribute("id", "delete");
-          // deleteButton.innerText = "Delete";
-          // deleteButton.dataset.id = game.id;
+          const deleteButton = document.createElement("button");
+          deleteButton.setAttribute("id", "delete");
+          deleteButton.innerText = "Delete";
+          deleteButton.dataset.id = game.id;
 
-          // deleteButton.addEventListener("click", function (e) {
-          //   deleteButton.parentNode.remove();
-          //   fetch(
-          //     `http://localhost:3000/api/v1/games/${deleteButton.dataset.id}`,
-          //     {
-          //       method: "DELETE",
-          //     }
-          //   ).then(() => {
-          //     leaderBoardPopUp.innerHTML = "";
-          //     leaderBoard();
-          //   });
-          // });
-          // li.appendChild(deleteButton);
+          deleteButton.addEventListener("click", function (e) {
+            deleteButton.parentNode.remove();
+            fetch(
+              `http://localhost:3000/api/v1/games/${deleteButton.dataset.id}`,
+              {
+                method: "DELETE",
+              }
+            ).then(() => {
+              leaderBoardPopUp.innerHTML = "";
+              leaderBoard();
+            });
+          });
+          li.appendChild(deleteButton);
 
           ol.appendChild(li);
         });
